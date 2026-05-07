@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Digital - Bytecomtec</title>
+    <style>
+        body { background-color: #f4f4f4; margin: 0; display: flex; flex-direction: column; align-items: center; }
+        .catalogo-container { width: 100%; max-width: 800px; padding: 10px; }
+        .pagina { 
+            width: 100%; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #fff;
+            min-height: 500px; /* Evita saltos de pantalla mientras carga */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="catalogo-container" id="visor-catalogo">
+        <!-- Las imágenes se generarán aquí con JavaScript -->
+    </div>
+
+<script>
+    const contenedor = document.getElementById('visor-catalogo');
+    
+    // CORRECCIÓN: Cambia 150 por 115
+    const totalPaginas = 3; 
+    
+    const prefijo = 'pagina-'; // Asegúrate que tus archivos se llamen pagina-000.webp a pagina-114.webp
+
+    for (let i = 0; i < totalPaginas; i++) {
+        // Genera el número con 3 dígitos: 000, 001, 002...
+        const numeroPagina = String(i).padStart(3, '0');
+        
+        const img = document.createElement('img');
+        img.src = `${prefijo}${numeroPagina}.webp`;
+        img.className = 'pagina';
+        img.alt = `Página ${i + 1}`;
+        img.loading = 'lazy'; 
+        
+        // Manejo de errores: Si una imagen no existe, no la muestra
+        img.onerror = function() {
+            this.style.display = 'none';
+        };
+        
+        contenedor.appendChild(img);
+    }
+</script>
+</body>
+</html>
